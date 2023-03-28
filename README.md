@@ -12,6 +12,7 @@ $$
 for $q \in (0,1)$ . Then the joint distribution of $Y=(y_{1},...,y_{n})$ given $X=(x_{1},...,x_{n})$ is
 
 
+
 $$
 f(Y\mid X, \beta,\sigma)=q^{n}(1-q)^{n}\exp\left[-\sum_{i=1}^{n}\rho_{q}(y_{i}-x_{i}^{T}\beta) \right]
 $$
@@ -63,17 +64,15 @@ where $\Sigma= (X^{T}DX+\lambda^{4}\Lambda^{-2})^{-1}$ , $\mu=\Sigma X^{T}D(Y-\f
 
    
 
-3. Sample $\frac{1}{v_{j}} \mid \beta_{j}, \lambda
-   \sim \mathrm{InvGaussian}\left (\sqrt{\frac{1}{4\lambda^{2}|\beta_{j}|}},\frac{1}{2}\right) \quad \text{for} \quad j=1,...,P$
-
+3. Sample $\frac{1}{v_{j}} \sim \operatorname{InvGaussian}\left(\sqrt{\frac{1}{4 \lambda^{ 2}\left|\beta_{j}\right|}}, \frac{1}{2}\right), \quad j=1, \ldots, p$
    
-
-4. Sample $\frac{1}{{\tau}_{j}^{2}} \mid \lambda,\beta_{j},v_{j} 
-   \sim  \mathrm{InvGaussian}\left (\frac{1}{\lambda^{2}{v}_{j}|\beta_{j}|},\frac{1}{{v}_{j}^{2}}\right) \quad  \text{for} \quad  j=1,...,P$
-
    
-
-5. Sample $\frac{1}{w_{i}} \mid \beta, \sigma, y_{i} \sim \mathrm{InvGaussian}\left(\frac{1}{q(1-q)|y_{i}-x_{i}^{T}\beta|},\frac{1}{2q(1-q)}\right) \quad \text{for}  \quad i=1,...,N$
+   
+4. Sample $\frac{1}{\tau_{j}} \sim \operatorname{InvGaussian}\left(\frac{1}{\lambda^{2} v_{j}\left|\beta_{j}\right|}, \frac{1}{v_{j}}\right), \quad j=1, \ldots, p$
+   
+   
+   
+5. Sample $\frac{1}{w_{i}} \mid \beta, \sigma, y_{i} \sim \mathrm{InvGaussian}\left(\frac{1}{q(1-q)|y_{i}-x_{i}^{T}\beta|},\frac{1}{2q(1-q)}\right), \quad i=1,\dots,N$
 
    
 
@@ -193,7 +192,7 @@ Therefore, we obtain a three-step procedure to sample the condition posterior of
 
 
 
-1. Generate $\tilde{b} \sim \mathcal{N}\left(\lambda^{-2}\Lambda^{1/2}X^{T} D \tilde{Y}, \tilde{\Sigma}^{-1}\right)$  
+1. Generate  $\tilde{b} \sim \mathcal{N}\left(\lambda^{-2}\Lambda^{1/2}X^{T} D \tilde{Y}, \tilde{\Sigma}^{-1}\right)$  
 
    
 
