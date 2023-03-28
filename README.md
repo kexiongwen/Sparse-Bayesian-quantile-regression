@@ -91,7 +91,7 @@ The similar PCG sampling scheme for $L_\frac{1}{2}$ prior can also be applied to
 
 The following procedure generates a sample $\beta$ from $\pi(\beta \mid \lambda,\tau^{2},\omega)$:
 
-1. Generate $b \sim \mathcal{N}\left(X^{T} D \tilde{y}, \Phi\right)$ by sampling independent Gaussian vectors  $\eta \sim \mathcal{N}\left(0, I_{n}\right)$ and $\delta \sim \mathcal{N}\left(0, I_{p}\right)$ and then setting
+1. Generate $b \sim \mathcal{N}\left(X^{T} D \tilde{y}, \Sigma^{-1}\right)$ by sampling independent Gaussian vectors  $\eta \sim \mathcal{N}\left(0, I_{n}\right)$ and $\delta \sim \mathcal{N}\left(0, I_{p}\right)$ and then setting
 
    
    $$
@@ -101,7 +101,7 @@ The following procedure generates a sample $\beta$ from $\pi(\beta \mid \lambda,
    $$
    
 
-   where $\Phi=X^{T} D X+\lambda^{4}\Lambda^{-1}$.
+   where $\Sigma^{-1}=X^{T} D X+\lambda^{4}\Lambda^{-1}$.
 
    
 
@@ -109,24 +109,24 @@ The following procedure generates a sample $\beta$ from $\pi(\beta \mid \lambda,
 
    
    $$
-   \Phi \boldsymbol{\beta}=b
+   \Sigma^{-1} \beta=b
    $$
 
 
 
-Since  $\Phi$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  For example, conjugated gradient method generates a sequence $\left\{\beta_{k}\right\}$,   $k=1,2,\dots$  of increasingly accurate approximations to the solution.
+Since  $\Phi$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  For example, conjugated gradient method generates a sequence  $\left\{\beta_{k}\right\}$,   $k=1,2,\dots$   of increasingly accurate approximations to the solution.
 
 
 
 ### Prior preconditioning
 
-To accelerate the  convergence of conjugated gradient,  the global and local shrinkage parameters will be used to precondition the linear system $\Phi \boldsymbol{\beta}=b$  In high-dimensional and very sparse setting,  the covariance matrix $(X^{T} D X+\lambda^{4}\Lambda^{-1})^{-1}$ for the conditional posterior of $\beta$  will near to singular. The prior preconditioning approach can also improve the numerical stable of the PCG sampler.
+To accelerate the  convergence of conjugated gradient,  the global and local shrinkage parameters will be used to precondition the linear system $\Sigma^{-1} \beta=b$  In high-dimensional and very sparse setting,  the covariance matrix $\Sigma$ for the conditional posterior of $\beta$  will near to singular. The prior preconditioning approach can also improve the numerical stable of the PCG sampler.
 
 A preconditioner is a positive definite matrix $M$ chosen such that the preconditioned system
 
 
 $$
-\tilde{\Phi} \tilde{\beta}=\tilde{b} \quad \text{for} \quad \tilde{\Phi}=M^{-1 / 2}\Phi M^{-1 / 2} \quad \text{and} \quad \tilde{b}=M^{-1 / 2} b
+\tilde{\Sigma}^{-1} \tilde{\beta}=\tilde{b} \quad \text{for} \quad \tilde{\Sigma}^{-1}=M^{-1 / 2}\Sigma^{-1} M^{-1 / 2} \quad \text{and} \quad \tilde{b}=M^{-1 / 2} b
 $$
 
 
@@ -139,8 +139,9 @@ The prior-preconditioned matrix  is given by
 
 
 $$
-\tilde{\Phi}=\lambda^{-4} \Lambda^{1/2} X^{T} D X \Lambda^{1/2}+I_{p}
+\tilde{\Sigma}^{-1}=\lambda^{-4} \Lambda^{1/2} X^{T} D X \Lambda^{1/2}+I_{p}
 $$
+
 
 
 The prior-preconditioned vector is given by
@@ -155,19 +156,19 @@ $$
 
 
 
-The $(i, j)$  entry of the matrix  $\tilde{\Phi}$  is given by
+The $(i, j)$  entry of the matrix  $\tilde{\Sigma}^{-1}$  is given by
 
 
 
 $$
-\tilde{\Phi}_{ij}= \begin{cases} \left(\lambda^{-2} \tau_i\right)\left(\lambda^{-2} \tau_{j}\right)\left(X^{T}D X\right)_{i j} & \text { if } i \neq j \\ \left(\lambda^{-4} \tau_{i}^{2}\right)\left(X^{T}D X\right)_{i i} +1 & \text { if } i=j \end{cases}
+\tilde{\Sigma}^{-1}_{ij}= \begin{cases} \left(\lambda^{-2} \tau_i\right)\left(\lambda^{-2} \tau_{j}\right)\left(X^{T}D X\right)_{i j} & \text { if } i \neq j \\ \left(\lambda^{-4} \tau_{i}^{2}\right)\left(X^{T}D X\right)_{i i} +1 & \text { if } i=j \end{cases}
 $$
 
 
 
 ### Sparse linear system approximation
 
-If $\beta_{i}$ or $\beta_{j}$ is identified as noise, then $\lambda^{-2} \tau_{i} \approx 0$ or $\lambda^{-2} \tau_{j} \approx 0$.  We have $\tilde{\Phi}_{ij} \approx 0$ or $\tilde{\Phi}_{ii} \approx 1$. By using a user-deﬁned thresholding parameter $\Delta$, we can have sparse approximation for $\tilde{\Phi}$, such that
+If $\beta_{i}$ or $\beta_{j}$ is identified as noise, then $\lambda^{-2} \tau_{i} \approx 0$ or $\lambda^{-2} \tau_{j} \approx 0$.  We have $\tilde{\Sigma}^{-1}_{ij} \approx 0$ or $\tilde{\Sigma}^{-1}_{ii} \approx 1$. By using a user-deﬁned thresholding parameter $\Delta$, we can have sparse approximation for $\tilde{\Phi}$, such that
 
 
 
@@ -192,7 +193,7 @@ Therefore, we obtain a three-step procedure to sample the condition posterior of
 
 
 
-1. Generate $\tilde{b} \sim \mathcal{N}\left(\lambda^{-2}\Lambda^{1/2}X^{T} D \tilde{Y}, \tilde{\Phi}\right)$ by using equation $(\ref{eq:b_tilde})$.
+1. Generate $\tilde{b} \sim \mathcal{N}\left(\lambda^{-2}\Lambda^{1/2}X^{T} D \tilde{Y}, \tilde{\Sigma}^{-1}\right)$  
 
    
 
@@ -201,9 +202,10 @@ Therefore, we obtain a three-step procedure to sample the condition posterior of
    
 
    $$
-   \tilde{\Phi}_{\Delta}\tilde{\beta}_{\Delta}=\tilde{b}
+   \tilde{\Sigma}^{-1}_{\Delta}\tilde{\beta}_{\Delta}=\tilde{b}
    $$
 
    
 
-3. Setting $\beta_{\Delta}=\lambda^{-2}\Lambda^{1/2}\tilde{\beta}_{\Delta}$, then $\beta_{\Delta} \sim \mathcal{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Phi}_{\Delta}^{-1} X^{T} D \tilde{y}, \lambda^{-4}\Lambda\tilde{\Phi}_{\Delta}^{-1}\tilde{\Phi}\tilde{\Phi}_{\Delta}^{-1}\right)$.
+3. Setting  $\beta_{\Delta}=\lambda^{-2}\Lambda^{1/2}\tilde{\beta}_{\Delta}$, then  $\beta_{\Delta} \sim \mathcal{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Sigma}_{\Delta} X^{T} D \tilde{y}, \lambda^{-4}\Lambda\tilde{\Sigma}_{\Delta}\tilde{\Sigma}^{-1}\tilde{\Sigma}_{\Delta}\right)$.
+
