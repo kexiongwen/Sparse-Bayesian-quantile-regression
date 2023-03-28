@@ -105,7 +105,7 @@ $$
 
    
 
-2. Solve the following linear system for $\beta$
+2. Solve the following linear system for $\beta$:
 
    
 
@@ -175,7 +175,7 @@ $$
 \begin{aligned}
 {\tilde{\Sigma}^{-1}_{\Delta}}_{ij}= &
 \begin{cases} 
-\left(\lambda^{-2} \tau_i\right)\left(\lambda^{-2} \tau_{j}\right)\left(X^{T}D X\right)_{i j} & \text { if }  \lambda^{-2} \tau_i>\Delta \,\, \text{or}\,\, \lambda^{-2} \tau_{j}>\Delta\\ 
+\left(\lambda^{-2} \tau_i\right)\left(\lambda^{-2} \tau_{j}\right)\left(X^{T}D X\right)_{i j} & \text { if }  \lambda^{-2} \tau_i>\Delta \quad \text{or}\quad \lambda^{-2} \tau_{j}>\Delta\\ 
 0 & \text { else } 
 \end{cases}\\
 {\tilde{\Sigma}^{-1}_{\Delta}}_{ii}= &
@@ -206,5 +206,11 @@ Therefore, we obtain a three-step procedure to sample the condition posterior of
 
    
 
-3. Setting  $\beta_{\Delta}=\lambda^{-2}\Lambda^{1/2}\tilde{\beta}_{\Delta}$, then  $\beta_{\Delta} \sim \mathrm{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Sigma}_{\Delta} X^{T} D \tilde{Y}, \lambda^{-4}\Lambda\tilde{\Sigma}_{\Delta}\tilde{\Sigma}^{-1}\tilde{\Sigma}_{\Delta}\right)$.
+3. Setting  $\beta_{\Delta}=\lambda^{-2}\Lambda^{1/2}\tilde{\beta}_{\Delta}$, then:
+
+
+$$
+\beta_{\Delta} \sim \mathrm{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Sigma}_{\Delta} X^{T} D \tilde{Y}, \lambda^{-4}\Lambda\tilde{\Sigma}_{\Delta}\tilde{\Sigma}^{-1}\tilde{\Sigma}_{\Delta}\right)
+$$
+
 
