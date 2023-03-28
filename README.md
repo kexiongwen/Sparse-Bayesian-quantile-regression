@@ -107,7 +107,7 @@ $$
 $$
 {\Sigma}^{-1}{\beta}=b
 $$
-     
+
 Since  $\Sigma^{-1}$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  
 
 
@@ -207,4 +207,37 @@ $$
 $$
 \beta_{\Delta} \sim \mathrm{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Sigma}_{\Delta} X^{T} D \tilde{Y}, \lambda^{-4}\Lambda\tilde{\Sigma}_{\Delta}\tilde{\Sigma}^{-1}\tilde{\Sigma}_{\Delta}\right)
 $$
+
+## Reference
+
+```
+@article{johndrow2020scalable,
+  title={Scalable approximate MCMC algorithms for the horseshoe prior},
+  author={Johndrow, James and Orenstein, Paulo and Bhattacharya, Anirban},
+  journal={Journal of Machine Learning Research},
+  volume={21},
+  number={73},
+  year={2020}
+}
+```
+
+```
+@article{nishimura2022prior,
+  title={Prior-Preconditioned Conjugate Gradient Method for Accelerated Gibbs Sampling in “Large n, Large p” Bayesian Sparse Regression},
+  author={Nishimura, Akihiko and Suchard, Marc A},
+  journal={Journal of the American Statistical Association},
+  pages={1--14},
+  year={2022},
+  publisher={Taylor \& Francis}
+}
+```
+
+```
+@article{ke2021bayesian,
+  title={Bayesian $ L_\frac{1}{2}$ regression},
+  author={Ke, Xiongwen and Fan, Yanan},
+  journal={arXiv preprint arXiv:2108.03464},
+  year={2021}
+}
+```
 
