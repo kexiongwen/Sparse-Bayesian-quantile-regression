@@ -165,7 +165,7 @@ $$
 
 ### Sparse linear system approximation
 
-If $\beta_{i}$ or $\beta_{j}$ is identified as noise, then $\lambda^{-2} \tau_{i} \approx 0$ or $\lambda^{-2} \tau_{j} \approx 0$.  We have $\tilde{\Sigma}^{-1}_{ij} \approx 0$ or $\tilde{\Sigma}^{-1}_{ii} \approx 1$. By using a user-deﬁned thresholding parameter $\Delta$, we can have sparse approximation for $\tilde{\Sigma}^{-1}$, such that
+If $\beta_{i}$ or $\beta_{j}$ is identified as noise, then $\lambda^{-2} \tau_{i} \approx 0$ or $\lambda^{-2} \tau_{j} \approx 0$.  We have  $\tilde{\Sigma}^{-1}_{ij} \approx 0$  or  $\tilde{\Sigma}^{-1}_{ii} \approx 1$ . By using a user-deﬁned thresholding parameter $\Delta$, we can have sparse approximation for $\tilde{\Sigma}^{-1}$, such that
 
 
 
@@ -199,10 +199,10 @@ Therefore, we obtain a three-step procedure to sample the condition posterior of
    
 
    $$
-   \tilde{\Sigma}^{-1}_{\Delta}\tilde{\beta}_{\Delta}=\tilde{b}
+   \tilde{\Sigma}_{\Delta}^{-1}\tilde{\beta}_{\Delta}=\tilde{b}
    $$
 
    
 
-3. Setting  $\beta_{\Delta}=\lambda^{-2}\Lambda^{1/2}\tilde{\beta}_{\Delta}$, then  $\beta_{\Delta} \sim \mathrm{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Sigma}_{\Delta} X^{T} D \tilde{y}, \lambda^{-4}\Lambda\tilde{\Sigma}_{\Delta}\tilde{\Sigma}^{-1}\tilde{\Sigma}_{\Delta}\right)$.
+3. Setting  $\beta_{\Delta}=\lambda^{-2}\Lambda^{1/2}\tilde{\beta}_{\Delta}$, then  $\beta_{\Delta} \sim \mathrm{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Sigma}_{\Delta} X^{T} D \tilde{Y}, \lambda^{-4}\Lambda\tilde{\Sigma}_{\Delta}\tilde{\Sigma}^{-1}\tilde{\Sigma}_{\Delta}\right)$.
 
