@@ -92,13 +92,13 @@ The following procedure generates a sample $\beta$ from $\pi(\beta \mid \lambda,
 
 1. Generate $b \sim \mathcal{N}\left(X^{T} D \tilde{y}, \Sigma^{-1}\right)$ by sampling independent Gaussian vectors  $\eta \sim \mathcal{N}\left(0, I_{n}\right)$ and $\delta \sim \mathcal{N}\left(0, I_{p}\right)$ and then setting
 
-   
+
    $$
    \begin{equation}
    b=X^{T}D\tilde{Y}+X^{T} D^{1 / 2} \eta+\lambda^{2}\tau^{-1} \odot \delta
    \end{equation}
    $$
-   
+
 
    where $\Sigma^{-1}=X^{T} D X+\lambda^{4}\Lambda^{-1}$.
 
@@ -107,6 +107,7 @@ The following procedure generates a sample $\beta$ from $\pi(\beta \mid \lambda,
 2. Solve the following linear system for $\beta$
 
    
+
    $$
    \Sigma^{-1} \beta=b
    $$
