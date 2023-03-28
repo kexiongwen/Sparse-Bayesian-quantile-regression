@@ -110,7 +110,7 @@ $$
    
 
    $$
-   \Sigma^{-1}\beta=b
+   A\beta=b
    $$
 
 
