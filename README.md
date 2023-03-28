@@ -113,7 +113,7 @@ The following procedure generates a sample $\beta$ from $\pi(\beta \mid \lambda,
 
 
 
-Since  $\Phi$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  For example, conjugated gradient method generates a sequence  $\left\{\beta_{k}\right\}$,   $k=1,2,\dots$   of increasingly accurate approximations to the solution.
+Since  $\Sigma^{-1}$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  For example, conjugated gradient method generates a sequence  $\left\{\beta_k\right\}$,   $k=1,2,\dots$   of increasingly accurate approximations to the solution.
 
 
 
