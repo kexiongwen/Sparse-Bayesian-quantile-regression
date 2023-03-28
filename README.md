@@ -9,8 +9,8 @@ $$
 f(\epsilon)=q(1-q) \exp[-\rho_{q}(\epsilon)]
 $$
 
-
 for $q \in (0,1)$ . Then the joint distribution of $Y=(y_{1},...,y_{n})$ given $X=(x_{1},...,x_{n})$ is
+
 
 
 $$
@@ -26,7 +26,7 @@ y_{i}=x_{i}^{T}\beta+(\theta_{1}w_{i}+\theta_{2}z_{i}\sqrt{w_{i}})
 $$
 
 
-where $\theta_{1}=\frac{1-2q}{q(1-q)}$,$\theta_{2}=\sqrt{\frac{2}{q(1-q)}}$,$z_{i}\sim N(0,1)$ and $w_{i} \sim \mathrm{Exp}(1)$.
+where $\theta_{1}=\frac{1-2q}{q(1-q)}$,  $\theta_{2}=\sqrt{\frac{2}{q(1-q)}}$,  $z_{i}\sim N(0,1)$ and $w_{i} \sim \mathrm{Exp}(1)$.
 
 
 
@@ -96,21 +96,28 @@ The following procedure generates a sample $\beta$ from $\pi(\beta \mid \lambda,
    \Phi \boldsymbol{\beta}=b
    $$
 
-Since $\Phi$ is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$ for example, conjugated gradient method generates a sequence $\left\{\beta_{k}\right\}$,  $k=1,2,...$ of increasingly accurate approximations to the solution.
+Since  $\Phi$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  For example, conjugated gradient method generates a sequence $\left\{\beta_{k}\right\}$,   $k=1,2,\dots$  of increasingly accurate approximations to the solution.
+
+
 
 ### Prior preconditioning
 
 To accelerate the  convergence of conjugated gradient,  the global and local shrinkage parameters will be used to precondition the linear system $\Phi \boldsymbol{\beta}=b$  In high-dimensional and very sparse setting,  the covariance matrix $(X^{T} D X+\lambda^{4}\Lambda^{-1})^{-1}$ for the conditional posterior of $\beta$  will near to singular. The prior preconditioning approach can also improve the numerical stable of the PCG sampler.
 
 A preconditioner is a positive definite matrix $M$ chosen such that the preconditioned system
+
+
 $$
 \tilde{\Phi} \tilde{\beta}=\tilde{b} \quad \text{for} \quad \tilde{\Phi}=M^{-1 / 2}\Phi M^{-1 / 2} \quad \text{and} \quad \tilde{b}=M^{-1 / 2} b
 $$
+
+
 where $M=\lambda^{4}\Lambda^{-1}$. By setting $\beta=M^{-1/2}\tilde{\beta}$,  we obatin the solution of the original linear system. 
 
 
 
 The prior-preconditioned matrix  is given by
+
 
 
 $$
@@ -119,17 +126,22 @@ $$
 The prior-preconditioned vector is given by
 
 
+
 $$
 \begin{equation}\label{eq:b_tilde}
 \tilde{b}=\lambda^{-2}\Lambda^{1/2}X^{T}D\tilde{Y}+\lambda^{-2}\Lambda^{1/2} X^{T} D^{1 / 2} \eta+ \delta
 \end{equation}
 $$
+
+
 The $(i, j)$th entry of the matrix $\tilde{\Phi}$ is given by
+
 
 
 $$
 \tilde{\Phi}_{ij}= \begin{cases} \left(\lambda^{-2} \tau_i\right)\left(\lambda^{-2} \tau_{j}\right)\left(X^{T}D X\right)_{i j} & \text { if } i \neq j \\ \left(\lambda^{-4} \tau_{i}^{2}\right)\left(X^{T}D X\right)_{i i} +1 & \text { if } i=j \end{cases}
 $$
+
 
 
 ### Sparse linear system approximation
