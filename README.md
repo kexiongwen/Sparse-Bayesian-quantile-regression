@@ -105,12 +105,12 @@ $$
 
    
 
-2. Solve the following linear system for $\beta$:
+2. Solve the following linear system for $\beta$ :
 
    
 
    $$
-   \Sigma^{-1} \beta=b
+   \Sigma^{-1}\beta=b
    $$
 
 
