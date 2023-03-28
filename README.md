@@ -12,13 +12,14 @@ $$
 for $q \in (0,1)$ . Then the joint distribution of $Y=(y_{1},...,y_{n})$ given $X=(x_{1},...,x_{n})$ is
 
 
+$$
+f(Y\mid X, \beta,\sigma)=q^{n}(1-q)^{n}\exp\left[-\sum_{i=1}^{n}\rho_{q}(y_{i}-x_{i}^{T}\beta) \right]
+$$
 
-$$
-f(Y\mid X, \beta,\sigma)=q^{n}(1-q)^{n}\exp\left\{-\sum_{i=1}^{n}\rho_{q}(y_{i}-x_{i}^{T}\beta) \right\}
-$$
 
 
 Since the skewed Laplace distribution can be represented as a scale mixture of normals, we have
+
 
 
 $$
@@ -26,18 +27,27 @@ y_{i}=x_{i}^{T}\beta+(\theta_{1}w_{i}+\theta_{2}z_{i}\sqrt{w_{i}})
 $$
 
 
+
 where $\theta_{1}=\frac{1-2q}{q(1-q)}$,  $\theta_{2}=\sqrt{\frac{2}{q(1-q)}}$,  $z_{i}\sim N(0,1)$ and $w_{i} \sim \mathrm{Exp}(1)$.
 
 
 
 We consider a $L_{\frac{1}{2}}$ prior on $\beta_{j}$ such that 
+
+
 $$
 \pi(\beta_{j} \mid \sigma, \lambda)\propto \exp[-\lambda |\beta_{j}|^{\frac{1}{2}}]
 $$
+
+
 with hyper-prior 
+
+
 $$
 \frac{1}{\sqrt{\lambda}} \sim \mathrm{Cauchy_{+}}(0,1),
 $$
+
+
 
 ## Partially Collapsed Gibbs Sampling
 
