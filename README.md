@@ -113,7 +113,7 @@ The following procedure generates a sample $\beta$ from $\pi(\beta \mid \lambda,
 
 
 
-Since  $\Sigma^{-1}$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  For example, conjugated gradient method generates a sequence  $\left\{\beta_k\right\}$,   $k=1,2,\dots$   of increasingly accurate approximations to the solution.
+Since  $\Sigma^{-1}$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  
 
 
 
@@ -178,8 +178,8 @@ $$
 \end{cases}\\
 {\tilde{\Sigma}^{-1}_{\Delta}}_{ii}= &
 \begin{cases} 
-\left(\lambda^{-4} \tau_{i}^{2}\right)\left(X^{T}D X\right)_{i i}+1 & \quad\,\,\, \text { if }  \lambda^{-2} \tau_i>\Delta\\
-1 & \quad\,\, \,\text { else } 
+\left(\lambda^{-4} \tau_{i}^{2}\right)\left(X^{T}D X\right)_{i i}+1 & \quad\quad \text { if }  \lambda^{-2} \tau_i>\Delta\\
+1 & \quad\quad\text { else } 
 \end{cases}
 \end{aligned}
 $$
@@ -199,7 +199,7 @@ Therefore, we obtain a three-step procedure to sample the condition posterior of
    
 
    $$
-   \tilde{\Sigma}_{\Delta}^{-1}\tilde{\beta}_{\Delta}=\tilde{b}
+   \tilde{\Sigma}_{\Delta}^{-1} \tilde{\beta}_{\Delta} = \tilde{b}
    $$
 
    
