@@ -164,7 +164,7 @@ $$
 
 ### Sparse linear system approximation
 
-If $\beta_{i}$ or $\beta_{j}$ is identified as noise, then $\lambda^{-2} \tau_{i} \approx 0$ or $\lambda^{-2} \tau_{j} \approx 0$.  We have  $\tilde{\Sigma}^{-1}_{ij} \approx 0$  or  $\tilde{\Sigma}^{-1}_{ii} \approx 1$ . By using a user-deﬁned thresholding parameter $\Delta$, we can have sparse approximation for $\tilde{\Sigma}^{-1}$, such that
+If $\beta_{i}$ or $\beta_{j}$ is identified as noise, then $\lambda^{-2} \tau_{i} \approx 0$ or $\lambda^{-2} \tau_{j} \approx 0$.  We have  $\tilde{\Sigma}_{ij}^{-1} \approx 0$  or  $\tilde{\Sigma}_{ii}^{-1} \approx 1$. By using a user-deﬁned thresholding parameter $\Delta$, we can have sparse approximation for $\tilde{\Sigma}^{-1}$, such that
 
 
 
