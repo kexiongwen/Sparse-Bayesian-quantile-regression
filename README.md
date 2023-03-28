@@ -160,7 +160,11 @@ The $(i, j)$  entry of the matrix  $\tilde{\Sigma}^{-1}$  is given by
 
 
 $$
-\tilde{\Sigma}_{i j}^{-1}= \begin{cases}\left(\lambda^{-2} \tau_i\right)\left(\lambda^{-2} \tau_j\right)\left(X^T D X\right)_{i j} & \text { if } i \neq j \\ \left(\lambda^{-4} \tau_i^2\right)\left(X^T D X\right)_{i i}+1 & \text { if } i=j\end{cases}
+\tilde{\Sigma}_{i j}^{-1}= 
+\begin{cases}
+\left(\lambda^{-2} \tau_i\right)\left(\lambda^{-2} \tau_j\right)\left(X^T D X\right)_{i j} & \text { if } i \neq j \\ 
+\left(\lambda^{-4} \tau_i^2\right)\left(X^T D X\right)_{i i}+1 & \text { if } i=j
+\end{cases}
 $$
 
 
@@ -212,5 +216,4 @@ Therefore, we obtain a three-step procedure to sample the condition posterior of
 $$
 \beta_{\Delta} \sim \mathrm{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Sigma}_{\Delta} X^{T} D \tilde{Y}, \lambda^{-4}\Lambda\tilde{\Sigma}_{\Delta}\tilde{\Sigma}^{-1}\tilde{\Sigma}_{\Delta}\right)
 $$
-
 
