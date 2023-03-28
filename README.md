@@ -123,6 +123,8 @@ The prior-preconditioned matrix  is given by
 $$
 \tilde{\Phi}=\lambda^{-4} \Lambda^{1/2} X^{T} D X \Lambda^{1/2}+I_{p}
 $$
+
+
 The prior-preconditioned vector is given by
 
 
@@ -134,7 +136,7 @@ $$
 $$
 
 
-The $(i, j)$th entry of the matrix $\tilde{\Phi}$ is given by
+The $(i, j)$th  entry of the matrix  $\tilde{\Phi}$  is given by
 
 
 
@@ -178,8 +180,10 @@ Therefore, we obtain a three-step procedure to sample the condition posterior of
 2. Use conjugated gradient method to solve the following linear system for $\tilde{\beta}_{\Delta}$:
 
    
+
    $$
    \tilde{\Phi}_{\Delta}\tilde{\beta}_{\Delta}=\tilde{b}
    $$
    
+
 3. Setting $\beta_{\Delta}=\lambda^{-2}\Lambda^{1/2}\tilde{\beta}_{\Delta}$, then $\beta_{\Delta} \sim \mathcal{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Phi}_{\Delta}^{-1} X^{T} D \tilde{y}, \lambda^{-4}\Lambda\tilde{\Phi}_{\Delta}^{-1}\tilde{\Phi}\tilde{\Phi}_{\Delta}^{-1}\right)$.
