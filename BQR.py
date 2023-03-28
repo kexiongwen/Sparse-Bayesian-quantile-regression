@@ -11,7 +11,7 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
 
     N,P=np.shape(X)
     T1=1e-2
-    T2=1e-5
+    T2=1e-3
 
     #Initialization
     beta_sample=np.zeros((P,M+burn_in))
@@ -36,7 +36,7 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
         G=spdiags(G_diag,0,P,P)
         
         #Weight
-        D=c1*spdiags((np.square(omega_sample)).ravel(),0,N,N)
+        D=c1*spdiags((np.sqrt(omega_sample)).ravel(),0,N,N)
 
         #Preconditioning feature matrix
         XTD=sparse.csr_matrix.dot(X.T,D)
