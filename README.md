@@ -3,18 +3,32 @@
 ##  Model setting	
 
 Assume that $y_{i}=x_{i}^{T}\beta+\epsilon_{i}$ with $\epsilon_{i}$ being i.i.d random variables from the skewed Laplace distribution with density
+
+
 $$
 f(\epsilon)=q(1-q) \exp[-\rho_{q}(\epsilon)]
 $$
+
+
 for $q \in (0,1)$ . Then the joint distribution of $Y=(y_{1},...,y_{n})$ given $X=(x_{1},...,x_{n})$ is
+
+
 $$
 f(Y\mid X, \beta,\sigma)=q^{n}(1-q)^{n}\exp\left\{-\sum_{i=1}^{n}\rho_{q}(y_{i}-x_{i}^{T}\beta) \right\}
 $$
+
+
 Since the skewed Laplace distribution can be represented as a scale mixture of normals, we have
+
+
 $$
 y_{i}=x_{i}^{T}\beta+(\theta_{1}w_{i}+\theta_{2}z_{i}\sqrt{w_{i}})
 $$
+
+
 where $\theta_{1}=\frac{1-2q}{q(1-q)}$,$\theta_{2}=\sqrt{\frac{2}{q(1-q)}}$,$z_{i}\sim N(0,1)$ and $w_{i} \sim \mathrm{Exp}(1)$.
+
+
 
 We consider a $L_{\frac{1}{2}}$ prior on $\beta_{j}$ such that 
 $$
@@ -25,18 +39,34 @@ $$
 \frac{1}{\sqrt{\lambda}} \sim \mathrm{Cauchy_{+}}(0,1),
 $$
 
-## Partially collapsed Gibbs sampling
+## Partially Collapsed Gibbs Sampling
 
 1. Sample $\beta \mid \lambda,\tau^{2},w  \sim N(\mu,\Sigma)$
 
+
+
 where $\Sigma= (X^{T}DX+\lambda^{4}\Lambda^{-2})^{-1}$ , $\mu=\Sigma X^{T}D(Y-\frac{(1-2q)}{q(1-q)} W)$ ,  $D=\frac{q(1-q)}{2}\mathrm{Diag}(w_{i}^{-1})$ and $\Lambda=\mathrm{Diag}(\tau^{2})$
 
+
+
 2. Sample $\lambda \mid \beta, b \sim \mathrm{Gamma}(2P+0.5,\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2}}+1/b)$
+
+   
+
 3. Sample $\frac{1}{v_{j}} \mid \beta_{j}, \lambda
-   \sim \mathrm{InvGaussian}\left (\sqrt{\frac{1}{4\lambda^{2}|\beta_{j}|}},\frac{1}{2}\right)$ for $j=1,...,p$
+   \sim \mathrm{InvGaussian}\left (\sqrt{\frac{1}{4\lambda^{2}|\beta_{j}|}},\frac{1}{2}\right) \quad \text{for} \quad j=1,...,P$
+
+   
+
 4. Sample $\frac{1}{{\tau}_{j}^{2}} \mid \lambda,\beta_{j},v_{j} 
-   \sim  \mathrm{InvGaussian}\left (\frac{1}{\lambda^{2}{v}_{j}|\beta_{j}|},\frac{1}{{v}_{j}^{2}}\right)$ for $j=1,...,p$
-5. Sample $\frac{1}{w_{i}} \mid \beta, \sigma, y_{i} \sim \mathrm{InvGaussian}\left(\frac{1}{q(1-q)|y_{i}-x_{i}^{T}\beta|},\frac{1}{2q(1-q)}\right)$ for $i=1,...,n$
+   \sim  \mathrm{InvGaussian}\left (\frac{1}{\lambda^{2}{v}_{j}|\beta_{j}|},\frac{1}{{v}_{j}^{2}}\right) \quad  \text{for} \quad  j=1,...,P$
+
+   
+
+5. Sample $\frac{1}{w_{i}} \mid \beta, \sigma, y_{i} \sim \mathrm{InvGaussian}\left(\frac{1}{q(1-q)|y_{i}-x_{i}^{T}\beta|},\frac{1}{2q(1-q)}\right) \quad \text{for}  \quad i=1,...,N$
+
+   
+
 6. Sample $b \mid \lambda \sim \mathrm{InvGamma}(1,1+\lambda)$
 
 
@@ -107,6 +137,7 @@ $$
 If $\beta_{i}$ or $\beta_{j}$ is identified as noise, then $\lambda^{-2} \tau_{i} \approx 0$ or $\lambda^{-2} \tau_{j} \approx 0$.  We have $\tilde{\Phi}_{ij} \approx 0$ or $\tilde{\Phi}_{ii} \approx 1$. By using a user-deﬁned thresholding parameter $\Delta$, we can have sparse approximation for $\tilde{\Phi}$, such that
 
 
+
 $$
 \begin{aligned}
 {\tilde{\Phi}_{\Delta}}_{ij}= &
@@ -121,6 +152,7 @@ $$
 \end{cases}
 \end{aligned}
 $$
+
 
 
 Therefore, we obtain a three-step procedure to sample the condition posterior of $\beta$:
@@ -138,5 +170,4 @@ Therefore, we obtain a three-step procedure to sample the condition posterior of
    \tilde{\Phi}_{\Delta}\tilde{\beta}_{\Delta}=\tilde{b}
    $$
    
-
 3. Setting $\beta_{\Delta}=\lambda^{-2}\Lambda^{1/2}\tilde{\beta}_{\Delta}$, then $\beta_{\Delta} \sim \mathcal{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Phi}_{\Delta}^{-1} X^{T} D \tilde{y}, \lambda^{-4}\Lambda\tilde{\Phi}_{\Delta}^{-1}\tilde{\Phi}\tilde{\Phi}_{\Delta}^{-1}\right)$.
