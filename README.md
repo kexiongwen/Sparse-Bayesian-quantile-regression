@@ -160,7 +160,7 @@ The $(i, j)$  entry of the matrix  $\tilde{\Sigma}^{-1}$  is given by
 
 
 $$
-\tilde{\Sigma}^{-1}_{ij}= \begin{cases} \left(\lambda^{-2} \tau_i\right)\left(\lambda^{-2} \tau_{j}\right)\left(X^{T}D X\right)_{i j} & \text { if } i \neq j \\ \left(\lambda^{-4} \tau_{i}^{2}\right)\left(X^{T}D X\right)_{i i} +1 & \text { if } i=j \end{cases}
+\tilde{\Sigma}_{i j}^{-1}= \begin{cases}\left(\lambda^{-2} \tau_i\right)\left(\lambda^{-2} \tau_j\right)\left(X^T D X\right)_{i j} & \text { if } i \neq j \\ \left(\lambda^{-4} \tau_i^2\right)\left(X^T D X\right)_{i i}+1 & \text { if } i=j\end{cases}
 $$
 
 
