@@ -99,23 +99,17 @@ $$
 b=X^{T}D\tilde{Y}+X^{T} D^{1 / 2} \eta+\lambda^{2}\tau^{-1} \odot \delta
 $$
 
-  
-
- where $\Sigma^{-1}=X^{T} D X+\lambda^{4}\Lambda^{-1}$.
-
    
 
 2. Solve the following linear system for $\beta$ :
 
    
-
    $$
-   A\beta=b
+   \Sigma^{-1}\beta=b
    $$
-
-
-
-Since  $\Sigma^{-1}$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  
+   
+   
+   Since  $\Sigma^{-1}$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  
 
 
 
