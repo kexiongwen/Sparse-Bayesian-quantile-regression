@@ -104,9 +104,11 @@ $$
 2. Solve the following linear system for $\beta$ :
 
    
+   
    $$
-   \Sigma^{-1}\beta=b
+   {\Sigma}^{-1}{\beta}=b
    $$
+   
    
    
    Since  $\Sigma^{-1}$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  
