@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.sparse import spdiags
 from scipy import sparse
-from scipy.sparse import csc_matrix
+from scipy.sparse import csr_matrix
 from scipy.stats import invgamma
 from scipy.stats import invgauss
 from scipy.sparse.linalg import cg
@@ -39,7 +39,7 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
         D=c1*spdiags((np.sqrt(omega_sample)).ravel(),0,N,N)
 
         #Preconditioning feature matrix
-        XTD=sparse.csr_matrix.dot(X.T,D)
+        XTD=sparse.csr_matrix.dot(D,X).T
         GXTD=sparse.csr_matrix.dot(G,XTD)
         DY=sparse.csr_matrix.dot(D,(Y-c2/omega_sample))
         
@@ -52,7 +52,7 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
         b=GXTD@DY+GXTD@np.random.randn(N,1)+np.random.randn(P,1)
 
         #Solve Preconditioning the linear system by conjugated gradient method
-        beta_tilde,_=cg(csc_matrix(GXTDXG*(1-Mask1@Mask1.T)+sparse.diags(np.ones(P))),b.ravel(),x0=np.zeros(P),tol=1e-4)
+        beta_tilde,_=cg(csr_matrix(GXTDXG*(1-Mask1@Mask1.T)+sparse.diags(np.ones(P))),b.ravel(),x0=np.zeros(P),tol=1e-4)
 
         #revert to the solution of the original system
         beta_sample[:,i]=G_diag*beta_tilde
