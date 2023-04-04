@@ -22,7 +22,7 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
     lam_sample=1
     omega_sample=np.ones((N,1))
     c1=(0.5*Q*(1-Q))**0.5
-    c2=(1-2*Q)/Q*(1-Q)
+    c2=(1-2*Q)/(Q*(1-Q))
     b=np.zeros((P,1))
     Mask1=np.zeros((P,1))
     Mask2=np.zeros(P)
