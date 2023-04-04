@@ -69,11 +69,11 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
     
         #Sample V
         v_sample[~Mask2]=2/invgauss.rvs(np.reciprocal(ink[~Mask2]))
-        v_sample[Mask2]=np.random.gamma(0.5,0.25*np.ones_like(v_sample[Mask2]))
+        v_sample[Mask2]=np.random.gamma(0.5,4*np.ones_like(v_sample[Mask2]))
 
         #Sample tau2
         tau_sample[~Mask2]=v_sample[~Mask2]/np.sqrt(invgauss.rvs(v_sample[~Mask2]/(np.square(ink[~Mask2]))))
-        tau_sample[Mask2]=np.sqrt(np.random.gamma(0.5,0.5/np.square(v_sample[Mask2])))
+        tau_sample[Mask2]=np.sqrt(np.random.gamma(0.5,2*np.square(v_sample[Mask2])))
         
         #Sample omega
         omega_sample=invgauss.rvs(2/np.abs(Y-X@beta_sample[:,i:i+1]))/(2*Q*(1-Q))
