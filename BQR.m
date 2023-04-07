@@ -18,21 +18,20 @@ for i=2:(M+burn_in)
     
     %Sample beta
     %Prior preconditioning matrix from global-local shrinkage
-    G_diag=(tau_sample)./lam_sample.^2;
-    G=spdiags(G_diag,0,S(2),S(2));
-
+    G=(tau_sample)./lam_sample.^2;
+    
     %Weight
-    D=c1*spdiags((sqrt(omega_sample)),0,S(1),S(1));
+    D=c1*sqrt(omega_sample);
 
     %Preconditioning feature matrix
-    XTD=X'*D;
-    GXTD=G*XTD;
-    DY=D*(Y-c2./omega_sample);
+    XTD=X'.*D';
+    GXTD=G.*XTD;
+    DY=D.*(Y-c2./omega_sample);
 
     %Preconditioning covariance matrix
     GXTDXG=GXTD*GXTD';
 
-    Mask1=G_diag<T1;
+    Mask1=G<T1;
 
     %Sample b
     b=GXTD*DY+GXTD*randn(S(1),1)+randn(S(2),1);
@@ -41,7 +40,7 @@ for i=2:(M+burn_in)
     beta_tilde=cgs(sparse(GXTDXG.*(1-Mask1*Mask1')+speye(S(2))),b,1e-3);
 
     %revert to the solution of the original system
-    beta_sample(:,i)=G_diag.*beta_tilde;
+    beta_sample(:,i)=G.*beta_tilde;
 
     % Sampling lambda
     lam_sample=gamrnd(2*S(2)+0.5,1./(sum(sqrt(abs(beta_sample(:,i))))+1./a_sample));
