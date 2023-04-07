@@ -32,21 +32,20 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
         #Sample beta
 
         #Prior preconditioning matrix from global-local shrinkage
-        G_diag=(tau_sample)/lam_sample**2
-        G=spdiags(G_diag,0,P,P)
-        
+        G=(tau_sample)/lam_sample**2
+         
         #Weight
-        D=c1*spdiags((np.sqrt(omega_sample)).ravel(),0,N,N)
+        D=c1*np.sqrt(omega_sample)
 
         #Preconditioning feature matrix
-        XTD=sparse.csr_matrix.dot(D,X).T
-        GXTD=sparse.csr_matrix.dot(G,XTD)
-        DY=sparse.csr_matrix.dot(D,(Y-c2/omega_sample))
+        XTD=X.T*D.T         
+        GXTD=G.reshape(-1,1)*XTD           
+        DY=D*(Y-c2/omega_sample)
         
         #Preconditioning covariance matrix
         GXTDXG=GXTD@GXTD.T
 
-        Mask1[:,0]=(G_diag<T1).astype(float)
+        Mask1[:,0]=(G<T1).astype(float)
 
         #Sample b
         b=GXTD@DY+GXTD@np.random.randn(N,1)+np.random.randn(P,1)
@@ -55,7 +54,7 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
         beta_tilde,_=cg(csr_matrix(GXTDXG*(1-Mask1@Mask1.T)+sparse.diags(np.ones(P))),b.ravel(),x0=np.zeros(P),tol=1e-4)
 
         #revert to the solution of the original system
-        beta_sample[:,i]=G_diag*beta_tilde
+        beta_sample[:,i]=G*beta_tilde
 
         #Sample lambda
         lam_sample=np.random.gamma(2*P+0.5,((np.abs(beta_sample[:,i])**0.5).sum()+1/a_sample)**-1)
