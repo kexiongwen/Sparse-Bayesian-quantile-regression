@@ -1,5 +1,5 @@
 tic
-n=10000;
+n=100;
 p=1000;
 BetaTrue = zeros(p,1);
 BetaTrue(1)=2;
