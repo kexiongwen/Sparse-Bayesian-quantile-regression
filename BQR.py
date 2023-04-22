@@ -10,8 +10,7 @@ from scipy.sparse.linalg import cg
 def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
 
     N,P=np.shape(X)
-    T1=1e-2
-    T2=1e-3
+    
 
     #Initialization
     beta_sample=np.zeros((P,M+burn_in))
@@ -24,8 +23,7 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
     c1=(0.5*Q*(1-Q))**0.5
     c2=(1-2*Q)/(Q*(1-Q))
     b=np.zeros((P,1))
-    Mask1=np.zeros((P,1))
-    Mask2=np.zeros(P)
+    
 
     for i in range(1,M+burn_in):
 
@@ -45,13 +43,11 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
         #Preconditioning covariance matrix
         GXTDXG=GXTD@GXTD.T
 
-        Mask1[:,0]=(G<T1).astype(float)
-
         #Sample b
         b=GXTD@DY+GXTD@np.random.randn(N,1)+np.random.randn(P,1)
 
         #Solve Preconditioning the linear system by conjugated gradient method
-        beta_tilde,_=cg(csr_matrix(GXTDXG*(1-Mask1@Mask1.T)+sparse.diags(np.ones(P))),b.ravel(),x0=np.zeros(P),tol=1e-4)
+        beta_tilde,_=cg(GXTDXG+sparse.diags(np.ones(P)),b.ravel(),x0=np.zeros(P),tol=1e-2)
 
         #revert to the solution of the original system
         beta_sample[:,i]=G*beta_tilde
@@ -64,15 +60,12 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
         
         ink=lam_sample*np.sqrt(np.abs(beta_sample[:,i]))
 
-        Mask2=ink<T2
-    
         #Sample V
-        v_sample[~Mask2]=2/invgauss.rvs(np.reciprocal(ink[~Mask2]))
-        v_sample[Mask2]=np.random.gamma(0.5,4*np.ones_like(v_sample[Mask2]))
-
+        v_sample=2/invgauss.rvs(np.reciprocal(ink))
+        
         #Sample tau2
-        tau_sample[~Mask2]=v_sample[~Mask2]/np.sqrt(invgauss.rvs(v_sample[~Mask2]/(np.square(ink[~Mask2]))))
-        tau_sample[Mask2]=np.sqrt(np.random.gamma(0.5,2*np.square(v_sample[Mask2])))
+        tau_sample=v_sample/np.sqrt(invgauss.rvs(v_sample/(np.square(ink))))
+       
         
         #Sample omega
         omega_sample=invgauss.rvs(2/np.abs(Y-X@beta_sample[:,i:i+1]))/(2*Q*(1-Q))
