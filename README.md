@@ -60,7 +60,7 @@ where $\Sigma= (X^{T}DX+\lambda^{4}\Lambda^{-2})^{-1}$ , $\mu=\Sigma X^{T}D(Y-\f
 
 
 
-2. Sample $\lambda \mid \beta, b \sim \mathrm{Gamma}(2P+0.5,\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2}}+1/b)$
+2. Sample $\lambda \mid \beta, b \sim \mathrm{Gamma}(2p+0.5,\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2}}+1/b)$
 
    
 
@@ -82,7 +82,7 @@ where $\Sigma= (X^{T}DX+\lambda^{4}\Lambda^{-2})^{-1}$ , $\mu=\Sigma X^{T}D(Y-\f
 
 ## Scalable PCG sampler via conjugated gradient, prior precondition and sparse linear system approximation
 
-The similar PCG sampling scheme for $L_\frac{1}{2}$ prior can also be applied to the likelihood which can be decomposed as scale mixture of Gaussian. However, in the “large *N* and large *P*” setting, the required posterior computation for $\beta$ encounters a bottleneck at repeated sampling from a high-dimensional Gaussian distribution, whose covariance matrix is expensive to compute and factorize. For example, in this quantile regression case, we have  $\Sigma= (X^{T}DX+\lambda^{4}\Lambda^{-2})^{-1}$ . In the article, https://www.tandfonline.com/doi/epdf/10.1080/01621459.2022.2057859?needAccess=true&role=button, the authors show that they can generate a random vector $b$ with low computation cost, such that the solution to the linear system  $\Sigma^{-1}\beta=b$  has the desire Gaussian distribution. This linear system can be solved by conjugate gradient algorithm, which doesn't involve explicity factorization of $\Sigma^{-1}$.Motived by the JOB-approximation from https://www.jmlr.org/papers/volume21/19-536/19-536.pdf,  we propose a sparse linear system approximation for  $\Sigma^{-1}$ , which can further speed up their algorithm.
+The similar PCG sampling scheme for $L_\frac{1}{2}$ prior can also be applied to the likelihood which can be decomposed as scale mixture of Gaussian. However, in the “large *N* and large *P*” setting, the required posterior computation for $\beta$ encounters a bottleneck at repeated sampling from a high-dimensional Gaussian distribution, whose covariance matrix is expensive to compute and factorize. For example, in this quantile regression case, we have  $\Sigma= (X^{T}DX+\lambda^{4}\Lambda^{-2})^{-1}$ . In the article, https://www.tandfonline.com/doi/epdf/10.1080/01621459.2022.2057859?needAccess=true&role=button, the authors show that they can generate a random vector $b$ with low computation cost, such that the solution to the linear system  $\Sigma^{-1}\beta=b$  has the desire Gaussian distribution. This linear system can be solved by conjugate gradient algorithm, which doesn't involve explicity factorization of $\Sigma^{-1}$
 
 
 
@@ -162,64 +162,9 @@ $$
 
 
 
-### Sparse linear system approximation
-
-By using a user-deﬁned thresholding parameter $\Delta$, we can have sparse approximation for $\tilde{\Sigma}^{-1}$, such that
-
-
-$$
-\begin{aligned}
-{\tilde{\Sigma}^{-1}_{\Delta}}_{ij}= &
-\begin{cases} 
-\left(\lambda^{-2} \tau_i\right)\left(\lambda^{-2} \tau_{j}\right)\left(X^{T}D X\right)_{i j} & \text { if }  \lambda^{-2} \tau_i>\Delta \quad \text{or}\quad \lambda^{-2} \tau_{j}>\Delta\\ 
-0 & \text { else } 
-\end{cases}\\
-{\tilde{\Sigma}^{-1}_{\Delta}}_{ii}= &
-\begin{cases} 
-\left(\lambda^{-4} \tau_{i}^{2}\right)\left(X^{T}D X\right)_{i i}+1 & \quad\quad \text { if }  \lambda^{-2} \tau_i>\Delta\\
-1 & \quad\quad\text { else } 
-\end{cases}
-\end{aligned}
-$$
-
-
-
-Therefore, we obtain a three-step procedure to sample the condition posterior of $\beta$:
-
-
-
-1. Generate  $\tilde{b} \sim \mathcal{N}\left(\lambda^{-2}\Lambda^{1/2}X^{T} D \tilde{Y}, \tilde{\Sigma}^{-1}\right)$  
-
-   
-
-2. Use conjugated gradient method to solve the following linear system for $\tilde{\beta}_{\Delta}$:
-
-   
-$$
-\tilde{\Sigma}_{\Delta}^{-1} \tilde{\beta}_{\Delta} = \tilde{b}
-$$
-
-   
-
-3. Setting  $\beta_{\Delta}=\lambda^{-2}\Lambda^{1/2}\tilde{\beta}_{\Delta}$, then:
-
-
-$$
-\beta_{\Delta} \sim \mathrm{N}\left(\lambda^{-2}\Lambda^{1/2} \tilde{\Sigma}_{\Delta} X^{T} D \tilde{Y}, \lambda^{-4}\Lambda\tilde{\Sigma}_{\Delta}\tilde{\Sigma}^{-1}\tilde{\Sigma}_{\Delta}\right)
-$$
+### 
 
 ## Reference
-
-```
-@article{johndrow2020scalable,
-  title={Scalable approximate MCMC algorithms for the horseshoe prior},
-  author={Johndrow, James and Orenstein, Paulo and Bhattacharya, Anirban},
-  journal={Journal of Machine Learning Research},
-  volume={21},
-  number={73},
-  year={2020}
-}
-```
 
 ```
 @article{nishimura2022prior,
