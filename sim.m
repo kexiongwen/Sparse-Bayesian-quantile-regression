@@ -33,6 +33,7 @@ toc
 
 
 beta_mean=mean(beta_sample,2);
+[L2,L1,sparsity,Ham,FDR,FNDR,coverage,coverage_nonzero]=metric(beta_sample,BetaTrue);
 
 
 

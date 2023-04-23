@@ -7,7 +7,6 @@ c1=(0.5*Q*(1-Q)).^0.5;
 c2=(1-2*Q)/(Q*(1-Q));
 beta_sample=zeros(S(2),M+burn_in);
 tau_sample=ones(S(2),1);
-v_sample=ones(S(2),1);
 omega_sample=ones(S(1),1);
 a_sample=1;
 lam_sample=1;
