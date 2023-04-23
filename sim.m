@@ -22,9 +22,15 @@ toc
 
 Q=0.5;
 
+%tic
+%[beta_sample]=BQR(Y,X,Q);
+%toc
+
+
 tic
-[beta_sample]=BQR(Y,X,Q);
+[beta_sample]=BQR_GPU(Y,X,Q);
 toc
+
 
 beta_mean=mean(beta_sample,2);
 
