@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.sparse import spdiags
 from scipy import sparse
-from scipy.sparse import csr_matrix
 from scipy.stats import invgamma
 from scipy.stats import invgauss
 from scipy.sparse.linalg import cg
@@ -47,7 +46,7 @@ def BQR(Y,X,Q=0.5,M=10000,burn_in=10000):
         b=GXTD@DY+GXTD@np.random.randn(N,1)+np.random.randn(P,1)
 
         #Solve Preconditioning the linear system by conjugated gradient method
-        beta_tilde,_=cg(GXTDXG+sparse.diags(np.ones(P)),b.ravel(),x0=np.zeros(P),tol=1e-2)
+        beta_tilde,_=cg(GXTDXG+sparse.diags(np.ones(P)),b.ravel(),x0=beta_tilde,tol=1e-4)
 
         #revert to the solution of the original system
         beta_sample[:,i]=G*beta_tilde

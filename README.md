@@ -160,9 +160,21 @@ $$
 \end{cases}
 $$
 
+## Usage
+
+```
+from BQR import BQR
+
+beta_sample=BQR(Y,X,q,M,burn_in)
+```
+
+1. $Y$ is the vector of response with length $N$  
+2. $X$ is $N \times P$ covariate matrix. 
+3. $q\in (0,1)$ is quantile level.
+4. $M$ is the number of the samples from MCMC with default setting 10000. 
+5. burn_in is the burn in period for MCMC with default setting 10000.  
 
 
-### 
 
 ## Reference
 
