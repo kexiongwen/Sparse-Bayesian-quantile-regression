@@ -108,13 +108,13 @@ $$
 {\Sigma}^{-1}{\beta}=b
 $$
 
-Since  $\Sigma^{-1}$  is symmetric and positive-definite, solving the linear system above can be further speed up by using conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  
+Since  $\Sigma^{-1}$  is symmetric and positive-definite, solving the linear system above can be further sped up by using the conjugated gradient method. Given an initial guess of $\beta$, which may be taken as $0$ or $\beta^{(t-1)}$.  
 
 
 
 ### Prior preconditioning
 
-To accelerate the  convergence of conjugated gradient,  the global and local shrinkage parameters will be used to precondition the linear system $\Sigma^{-1} \beta=b$  In high-dimensional and very sparse setting,  the covariance matrix $\Sigma$ for the conditional posterior of $\beta$  will near to singular. The prior preconditioning approach can also improve the numerical stable of the PCG sampler.
+To accelerate the  convergence of conjugated gradient,  the global and local shrinkage parameters will be used to precondition the linear system $\Sigma^{-1} \beta=b$  In high-dimensional and very sparse setting,  the covariance matrix $\Sigma$ for the conditional posterior of $\beta$  will near to singular. The prior preconditioning approach can also improve the numerical stability of the PCG sampler.
 
 A preconditioner is a positive definite matrix $M$ chosen such that the preconditioned system
 
@@ -124,7 +124,7 @@ $$
 $$
 
 
-where $M=\lambda^{4}\Lambda^{-1}$. By setting $\beta=M^{-1/2}\tilde{\beta}$,  we obatin the solution of the original linear system. 
+where $M=\lambda^{4}\Lambda^{-1}$. By setting $\beta=M^{-1/2}\tilde{\beta}$,  we obtain the solution of the original linear system. 
 
 
 
